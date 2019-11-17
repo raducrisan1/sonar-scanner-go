@@ -12,3 +12,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag sonarscanner-go:$(date +%s)
+      run: docker login docker.pkg.github.com --username raducrisan1
+      run: docker tag IMAGE_ID docker.pkg.github.com/raducrisan1/sonar-scanner-go/IMAGE_NAME:VERSION
+      run: docker push docker.pkg.github.com/raducrisan1/sonar-scanner-go/IMAGE_NAME:VERSION
