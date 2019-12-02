@@ -1,8 +1,5 @@
 FROM java:alpine
-
 ENV SONAR_SCANNER_VERSION 4.2.0.1873
-ENV GOLANG_VERSION 1.13.4
-
 RUN apk update && apk add --no-cache wget && \
     wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip && \
     unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION} && \
@@ -17,6 +14,7 @@ RUN apk add --no-cache \
 # - docker run --rm debian:stretch grep '^hosts:' /etc/nsswitch.conf
 RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
+ENV GOLANG_VERSION 1.13.4
 
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
@@ -67,5 +65,9 @@ RUN set -eux; \
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
+ENV SONARQUBE_SERVER=
+ENV SONAQUBE_PROJECT_KEY=
+ENV SONARQUBE_LOGIN=
+
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
-CMD sonar-scanner
+CMD sonar-scanner -Dsonar.host.url=${SONARQUBE_SERVER} -Dsonar.projectKey=$SONAQUBE_PROJECT_KEY -Dsonar.sources=/app -Dsonar.login=${SONARQUBE_LOGIN}
