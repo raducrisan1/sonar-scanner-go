@@ -66,8 +66,9 @@ ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 ENV SONARQUBE_SERVER=
-ENV SONAQUBE_PROJECT_KEY=
+ENV SONARQUBE_PROJECT_KEY=
 ENV SONARQUBE_LOGIN=
+ENV SONARQUBE_SOURCES=
 
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
-CMD sonar-scanner -Dsonar.host.url=${SONARQUBE_SERVER} -Dsonar.projectKey=$SONAQUBE_PROJECT_KEY -Dsonar.sources=/app -Dsonar.login=${SONARQUBE_LOGIN}
+CMD sonar-scanner -Dsonar.host.url=${SONARQUBE_SERVER} -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY -Dsonar.sources=${SONARQUBE_SOURCES} -Dsonar.login=${SONARQUBE_LOGIN}

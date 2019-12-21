@@ -8,7 +8,7 @@ Example to run this image:
 export PROJECT_ROOT=~/your/path/to/golang/project
 
 docker run -it --rm -v $PROJECT_ROOT:/app --name test-sonar-scanner-go \
---env SONARQUBE_SERVER=http://localhost:9000 --env SONAQUBE_PROJECT_KEY=project-key \
+--env SONARQUBE_SERVER=http://localhost:9000 --env SONARQUBE_PROJECT_KEY=project-key \
 --env SONARQUBE_LOGIN=<sonarqube-token> raducrisan/sonarscanner-go
 
 ```
